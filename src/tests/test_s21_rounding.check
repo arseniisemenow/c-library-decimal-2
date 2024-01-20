@@ -1,0 +1,65 @@
+//ROUNDING TESTS
+
+#test test_s21_floor_1
+  s21_decimal num1 = dec_define(25, 0, 0, 1, 0);
+  s21_decimal correct = dec_define(2,0,0,0,0);
+  s21_decimal result;
+  s21_floor(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_floor_2
+  s21_decimal num1 = dec_define(25, 0, 0, 1, 1);
+  s21_decimal correct = dec_define(3,0,0,0,1);
+  s21_decimal result;
+  s21_floor(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_negate_1
+  s21_decimal num1 = dec_define(123, 0, 0, 1, 1);
+  s21_decimal correct = dec_define(123,0,0,1,0);
+  s21_decimal result;
+  s21_negate(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_negate_2
+  s21_decimal num1 = dec_define(123, 0, 0, 1, 0);
+  s21_decimal correct = dec_define(123,0,0,1,1);
+  s21_decimal result;
+  s21_negate(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_round_1
+  s21_decimal num1 = dec_define(123, 0, 0, 1, 0);
+  s21_decimal correct = dec_define(12, 0, 0, 0, 0);
+  s21_decimal result={0};
+  s21_round(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_round_2
+  s21_decimal num1 = dec_define(127, 0, 0, 1, 1);
+  s21_decimal correct = dec_define(12, 0, 0, 0, 1);
+  s21_decimal result={0};
+  s21_round(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_truncate_1
+  s21_decimal num1 = dec_define(123, 0, 0, 1, 0);
+  s21_decimal correct = dec_define(12, 0, 0, 0, 0);
+  s21_decimal result={0};
+  s21_truncate(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);
+
+#test test_s21_truncate_2
+  s21_decimal num1 = dec_define(127, 0, 0, 1, 1);
+  s21_decimal correct = dec_define(12, 0, 0, 0, 1);
+  s21_decimal result={0};
+  s21_truncate(num1,&result);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(result.bits[i], correct.bits[i]);

@@ -1,0 +1,69 @@
+// DIV TESTS
+
+#test test_s21_div_1
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967293, 10, 1);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 0, 0);
+  s21_decimal correct = dec_define(2342687385, 232830643, 0, 28, 1);
+  int err = s21_div(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_div_2
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(991231, 4294967295, 4294967293, 10, 1);
+  s21_decimal num2 = dec_define(4294967295, 267517951, 4294967295, 4, 0);
+  s21_decimal correct = dec_define(3563491259, 434161530, 542, 28, 1);
+  int err = s21_div(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_div_3
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(991231, 4294967295, 4294967293, 10, 1);
+  s21_decimal num2 = dec_define(4294967295, 0, 4294967295, 4, 1);
+  s21_decimal correct = dec_define(2556375019, 434161564, 542, 28, 0);
+  int err = s21_div(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_div_4
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 28, 0);
+  s21_decimal num2 = dec_define(0, 0, 0, 28, 1);
+  int correct = 3;
+  int err = s21_div(num1, num2, &res);
+  ck_assert_int_eq(err, 3);
+
+#test test_s21_div_5
+    s21_decimal res = {0};
+    s21_decimal num1 = dec_define(1, 0, 0, 3, 1);
+    s21_decimal num2 = dec_define(1, 0, 0, 6, 0);
+    s21_decimal correct = dec_define(1000, 0, 0, 0, 1);
+    int err = s21_div(num1, num2, &res);
+    ck_assert_int_eq(err, 0);
+    for (int i = 0; i < 4; i++){
+      ck_assert_int_eq(res.bits[i], correct.bits[i]);}
+
+#test test_s21_div_6
+    s21_decimal res = {0};
+    s21_decimal num1 = dec_define(1, 0, 0, 3, 0);
+    s21_decimal num2 = dec_define(1, 0, 0, 6, 1);
+    s21_decimal correct = dec_define(1000, 0, 0, 0, 1);
+    int err = s21_div(num1, num2, &res);
+    ck_assert_int_eq(err, 0);
+    for (int i = 0; i < 4; i++){
+      ck_assert_int_eq(res.bits[i], correct.bits[i]);}
+
+#test test_s21_div_7
+    s21_decimal res = {0};
+    s21_decimal num1 = dec_define(1, 0, 0, 3, 1);
+    s21_decimal num2 = dec_define(1, 0, 0, 6, 1);
+    s21_decimal correct = dec_define(1000, 0, 0, 0, 0);
+    int err = s21_div(num1, num2, &res);
+    ck_assert_int_eq(err, 0);
+    for (int i = 0; i < 4; i++){
+      ck_assert_int_eq(res.bits[i], correct.bits[i]);}

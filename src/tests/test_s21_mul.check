@@ -1,0 +1,87 @@
+// MUL TESTS
+
+#test test_s21_mul_1
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(10, 1048575, 5, 7, 0);
+  s21_decimal num2 = dec_define(2, 0, 1048575, 28, 0);
+  s21_decimal correct = dec_define(4092572213, 3991125852, 967186956, 18, 0);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_2
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(5, 0, 0, 0, 1);
+  s21_decimal num2 = dec_define(5, 0, 0, 0, 0);
+  s21_decimal correct = dec_define(25, 0, 0, 0, 1);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_3
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 24, 0);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 24, 0);
+  s21_decimal correct = dec_define(158262358, 899300158, 3402823669, 19, 0);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_4
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 24, 1);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 24, 0);
+  s21_decimal correct = dec_define(158262358, 899300158, 3402823669, 19, 1);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_5
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 24, 0);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 24, 1);
+  s21_decimal correct = dec_define(158262358, 899300158, 3402823669, 19, 1);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_6
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 24, 0);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 24, 1);
+  s21_decimal correct = dec_define(158262358, 899300158, 3402823669, 19, 1);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_7
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 28, 1);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 28, 1);
+  s21_decimal correct = dec_define(158262358, 899300158, 3402823669, 27, 0);
+  int err = s21_mul(num1, num2, &res);
+  ck_assert_int_eq(err, 0);
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(res.bits[i], correct.bits[i]);
+
+#test test_s21_mul_8
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 0, 1);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 4, 1);
+  int err = s21_mul(num1, num2, &res);
+  int err_correct = 1;
+  ck_assert_int_eq(err, err_correct);
+
+#test test_s21_mul_9
+  s21_decimal res = {0};  
+  s21_decimal num1 = dec_define(4294967295, 4294967295, 4294967295, 1, 1);
+  s21_decimal num2 = dec_define(4294967295, 4294967295, 4294967295, 4, 0);
+  int err = s21_mul(num1, num2, &res);
+  int err_correct = 2;
+  ck_assert_int_eq(err, err_correct);
